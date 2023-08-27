@@ -10,7 +10,7 @@ public class FigureFactory {
         }
 
         return type switch {
-            FigureType.Triangle => GetTriangle(parameters).ConvertFailure<IFigure>(),
+            FigureType.Triangle => GetTriangle(parameters),
             FigureType.Сircle => GetСircle(parameters.First()),
             _ => Result.Failure<IFigure>("Такой фигуры еще не существует." )
         };
@@ -19,9 +19,9 @@ public class FigureFactory {
     public Result<IFigure> GetСircle(double radius) 
         => new Сircle(radius);
 
-    public Result<ITriangle> GetTriangle(IList<double> parameters) 
+    public Result<IFigure> GetTriangle(IList<double> parameters) 
         => parameters.Count != 3
-            ? Result.Failure<ITriangle>("Задано не верное количество сторон треугольника.") 
+            ? Result.Failure<IFigure>("Задано не верное количество сторон треугольника.") 
             : new Triangle(parameters);
 }
 

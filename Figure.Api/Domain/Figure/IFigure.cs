@@ -1,5 +1,5 @@
-﻿namespace Figure.Api.Domain.Figure; 
+﻿namespace Figure.Api.Domain.Figure;
 
 public interface IFigure {
-    double CalcArea();
+    FigureType Type { get; }
 }
