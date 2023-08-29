@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Figure.Api.Application.Endpoints.GetIsRightTriangle; 
 
 [ApiController]
-[Route("api/v1/figure/Triangle")]
+[Route("api/v1/figure/cheking/triangle")]
 public class GetIsRightTriangleEndpoint : ControllerBase {
     private readonly FigureFactory factory;
     private readonly ITriangleChecker triangleChecker;

@@ -9,6 +9,7 @@ namespace Figure.Api.Application.Endpoints.GetAreas;
 [Route("api/v1/figure")]
 public class AreaEndpoin : ControllerBase {
     private readonly FigureFactory factory;
+    
     private readonly CalcAreas calc;
     
     public AreaEndpoin(FigureFactory factory, CalcAreas calc) {
@@ -21,10 +22,13 @@ public class AreaEndpoin : ControllerBase {
         var figure = factory.GetFigure(request.Type, request.Parameters.ToList());
     
         return figure
-            .MapError<IFigure, IActionResult>(BadRequest)
-            .Tap(f => calc.CalcArea(f) )
+            .Map(f => calc.CalcArea(f))
+            .Bind(r => r)
+            .MapError<double, IActionResult>(r => {
+                return BadRequest(r);
+            })
             .Match(
-                onSuccess: f => Ok(),
+                onSuccess: r => Ok(r),
                 onFailure: e => e 
             );
     }
